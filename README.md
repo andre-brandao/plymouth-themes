@@ -77,7 +77,21 @@ sudo update-alternatives --config default.plymouth
 
 # update initramfs
 sudo update-initramfs -u
-``` 
+```
++ For NixOS add this to your configuration.nix
+```nix
+  boot.plymouth =
+    let
+      theme = "lone";
+    in
+    {
+      enable = true;
+      inherit theme;
+      themePackages = [ (pkgs.adi1090x-plymouth-themes.override { selected_themes = [ theme ]; }) ];
+    };
+```
+[Theme names and sha256 for NixOS](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/data/themes/adi1090x-plymouth-themes/shas.nix)
+
 ### Previews
 
 <!----------------------------- Pack 1 ----------------------------->
